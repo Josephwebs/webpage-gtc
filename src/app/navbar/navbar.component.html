@@ -1,0 +1,6 @@
+<mat-toolbar color="primary" *ngIf="auth.isLoggedIn()">
+  <span>Gestor de Tareas</span>
+  <span class="spacer"></span>
+  <span>{{ auth.currentUser?.name }}</span>
+  <button mat-button (click)="logout()">Salir</button>
+</mat-toolbar>

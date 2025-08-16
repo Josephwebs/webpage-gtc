@@ -10,7 +10,7 @@ import { Task } from '../models/task';
 import { User } from '../models/user';
 
 @Component({
-  selector: 'app-task-dialog',
+  selector: 'app-task-form',
   standalone: true,
   imports: [
     CommonModule,
@@ -21,15 +21,15 @@ import { User } from '../models/user';
     MatInputModule,
     MatSelectModule
   ],
-  templateUrl: './task-dialog.component.html',
-  styleUrl: './task-dialog.component.css'
+  templateUrl: './task-form.component.html',
+  styleUrl: './task-form.component.css'
 })
-export class TaskDialogComponent {
+export class TaskFormComponent {
   task: Task;
   users: User[];
 
   constructor(
-    private dialogRef: MatDialogRef<TaskDialogComponent>,
+    private dialogRef: MatDialogRef<TaskFormComponent>,
     @Inject(MAT_DIALOG_DATA) data: { task: Task; users: User[] }
   ) {
     this.task = data.task;
