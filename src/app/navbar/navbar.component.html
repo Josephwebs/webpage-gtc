@@ -1,6 +1,12 @@
 <mat-toolbar color="primary" *ngIf="auth.isLoggedIn()">
-  <span>Gestor de Tareas</span>
+  <span class="logo">Gestor</span>
+  <span class="greeting">¡Bienvenido, {{ (auth.currentUser$ | async)?.name }}!</span>
   <span class="spacer"></span>
-  <span>{{ auth.currentUser?.name }}</span>
-  <button mat-button (click)="logout()">Salir</button>
+  <button mat-icon-button [matMenuTriggerFor]="userMenu">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  <mat-menu #userMenu="matMenu">
+    <button mat-menu-item>Perfil</button>
+    <button mat-menu-item (click)="logout()">Cerrar sesión</button>
+  </mat-menu>
 </mat-toolbar>

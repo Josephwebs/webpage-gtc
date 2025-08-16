@@ -18,7 +18,7 @@
         <mat-card-content>
           <p>{{ task.description }}</p>
           <p>Fecha: {{ task.dueDate }}</p>
-          <p>Asignado a: {{ task.assignedTo }}</p>
+          <p>Asignado a: {{ userName(task.assignedTo) }}</p>
           <p class="priority">{{ task.priority }}</p>
         </mat-card-content>
         <mat-card-actions>

@@ -1,0 +1,13 @@
+<div class="kpi-card card" [ngClass]="accent">
+  <div class="badge"></div>
+  <div class="info">
+    <div class="title">{{ title }}</div>
+    <div class="value">{{ value }}</div>
+    <div class="subtitle">{{ subtitle }}</div>
+  </div>
+  <div class="trend" [ngClass]="trendType">
+    <mat-icon *ngIf="trendType === 'up'">trending_up</mat-icon>
+    <mat-icon *ngIf="trendType === 'down'">trending_down</mat-icon>
+    <span>{{ trendText }}</span>
+  </div>
+</div>

@@ -8,6 +8,7 @@ import { DragDropModule, CdkDragDrop } from '@angular/cdk/drag-drop';
 import { TaskService } from '../services/task.service';
 import { AuthService } from '../services/auth.service';
 import { Task } from '../models/task';
+import { User } from '../models/user';
 import { TaskFormComponent } from '../task-form/task-form.component';
 
 @Component({
@@ -27,6 +28,7 @@ import { TaskFormComponent } from '../task-form/task-form.component';
 export class KanbanBoardComponent implements OnInit {
   tasks: Task[] = [];
   statuses: Task['status'][] = ['Pendiente', 'En Progreso', 'Completado'];
+  users: User[] = [];
 
   constructor(
     private tasksService: TaskService,
@@ -35,11 +37,12 @@ export class KanbanBoardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.users = this.auth.getUsers();
     this.loadTasks();
   }
 
   loadTasks() {
-    this.tasks = this.tasksService.getTasks();
+    this.tasks = this.tasksService.listAll();
   }
 
   get tasksByStatus() {
@@ -52,7 +55,7 @@ export class KanbanBoardComponent implements OnInit {
 
   drop(event: CdkDragDrop<Task[]>, status: Task['status']) {
     const task = event.item.data as Task;
-    this.tasksService.updateStatus(task.id, status);
+    this.tasksService.moveStatus(task.id, status);
     this.loadTasks();
   }
 
@@ -73,9 +76,12 @@ export class KanbanBoardComponent implements OnInit {
             title: '',
             description: '',
             dueDate: '',
-            assignedTo: '',
-            priority: 'Media',
-            status: 'Pendiente'
+            assignedTo: 1,
+            priority: 'medium',
+            category: 'Flujo de Trabajo',
+            status: 'Pendiente',
+            createdAt: '',
+            updatedAt: ''
           },
         users: this.auth.getUsers()
       }
@@ -86,6 +92,10 @@ export class KanbanBoardComponent implements OnInit {
         this.loadTasks();
       }
     });
+  }
+
+  userName(id: number) {
+    return this.users.find(u => u.id === id)?.name || '';
   }
 }
 

@@ -1,10 +1,13 @@
 export interface Task {
   id: number;
   title: string;
-  boardId: number; // Added to associate task with a board
-  description: string;
-  dueDate: string;
-  assignedTo: string;
-  priority: 'Alta' | 'Media' | 'Baja';
+  description?: string;
   status: 'Pendiente' | 'En Progreso' | 'Completado';
-} 
+  priority: 'low' | 'medium' | 'high' | 'urgent';
+  category: 'Reunión Interna' | 'Flujo de Trabajo' | 'Administrativo' | 'Compromiso Cliente';
+  dueDate: string; // ISO
+  assignedTo: number; // userId
+  durationHours?: number;
+  createdAt: string;
+  updatedAt: string;
+}

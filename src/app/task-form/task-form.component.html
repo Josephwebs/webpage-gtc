@@ -16,15 +16,25 @@
     <mat-form-field appearance="fill">
       <mat-label>Asignado a</mat-label>
       <mat-select [(ngModel)]="task.assignedTo" name="assignedTo">
-        <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
+        <mat-option *ngFor="let user of users" [value]="user.id">{{ user.name }}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Prioridad</mat-label>
       <mat-select [(ngModel)]="task.priority" name="priority">
-        <mat-option value="Alta">Alta</mat-option>
-        <mat-option value="Media">Media</mat-option>
-        <mat-option value="Baja">Baja</mat-option>
+        <mat-option value="low">Baja</mat-option>
+        <mat-option value="medium">Media</mat-option>
+        <mat-option value="high">Alta</mat-option>
+        <mat-option value="urgent">Urgente</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Categoría</mat-label>
+      <mat-select [(ngModel)]="task.category" name="category">
+        <mat-option value="Reunión Interna">Reunión Interna</mat-option>
+        <mat-option value="Flujo de Trabajo">Flujo de Trabajo</mat-option>
+        <mat-option value="Administrativo">Administrativo</mat-option>
+        <mat-option value="Compromiso Cliente">Compromiso Cliente</mat-option>
       </mat-select>
     </mat-form-field>
   </form>

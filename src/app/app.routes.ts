@@ -5,9 +5,9 @@ import { KanbanBoardComponent } from './kanban-board/kanban-board.component';
 import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-  { path: 'auth', component: AuthComponent },
+  { path: 'login', component: AuthComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'kanban-board', component: KanbanBoardComponent, canActivate: [AuthGuard] },
-  { path: '', pathMatch: 'full', redirectTo: 'auth' },
-  { path: '**', redirectTo: 'auth' }
+  { path: 'boards', component: KanbanBoardComponent, canActivate: [AuthGuard] },
+  { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
+  { path: '**', redirectTo: 'dashboard' }
 ];
