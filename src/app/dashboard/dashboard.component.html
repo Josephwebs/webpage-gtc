@@ -1,49 +1,15 @@
-<div class="filters">
-  <mat-form-field appearance="fill">
-    <mat-label>Usuario</mat-label>
-    <mat-select [(ngModel)]="filterUser">
-      <mat-option value="">Todos</mat-option>
-      <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field appearance="fill">
-    <mat-label>Estado</mat-label>
-    <mat-select [(ngModel)]="filterStatus">
-      <mat-option value="">Todos</mat-option>
-      <mat-option *ngFor="let s of statuses" [value]="s">{{ s }}</mat-option>
-    </mat-select>
-  </mat-form-field>
-</div>
-<div class="board-content">
-  <div
-    class="column"
-    *ngFor="let status of statuses"
-    [ngClass]="statusClass(status)"
-    cdkDropList
-    (cdkDropListDropped)="drop($event, status)"
-  >
-    <h3>{{ status }}</h3>
-    <div
-      class="task"
-      *ngFor="let task of tasksByStatus[status]"
-      cdkDrag
-      [cdkDragData]="task"
-    >
-      <mat-card [ngClass]="priorityClass(task.priority)">
-        <mat-card-title>{{ task.title }}</mat-card-title>
-        <mat-card-content>
-          <p>{{ task.description }}</p>
-          <p>Fecha: {{ task.dueDate }}</p>
-          <p>Asignado a: {{ task.assignedTo }}</p>
-          <p class="priority">{{ task.priority }}</p>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-button (click)="openTask(task)">Editar</button>
-        </mat-card-actions>
-      </mat-card>
+<div class="layout-container">
+  <app-filters-bar></app-filters-bar>
+
+  <div class="kpi-grid">
+    <app-kpi-card *ngFor="let k of kpis" [title]="k.title" [value]="k.value" [subtitle]="k.subtitle" [trendText]="k.trendText" [trendType]="k.trendType" [accent]="k.accent"></app-kpi-card>
+  </div>
+
+  <div class="main-grid">
+    <app-recent-tasks></app-recent-tasks>
+    <div class="side">
+      <app-team-activity></app-team-activity>
+      <app-quick-links></app-quick-links>
     </div>
   </div>
 </div>
-<button mat-fab color="primary" class="add-btn" (click)="openTask()">
-  <mat-icon>add</mat-icon>
-</button>

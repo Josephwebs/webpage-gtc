@@ -1,0 +1,39 @@
+.team-activity {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+
+  .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-pill);
+    background: var(--violet);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    margin-right: 16px;
+  }
+
+  .info {
+    flex: 1;
+  }
+
+  .name {
+    font-weight: 600;
+  }
+
+  .status {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .pill {
+    background: var(--muted);
+    color: white;
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    font-size: 12px;
+  }
+}

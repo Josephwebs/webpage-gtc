@@ -1,0 +1,17 @@
+<div class="recent-tasks card">
+  <h3>Tareas Recientes</h3>
+  <ul>
+    <li *ngFor="let task of tasks">
+      <div class="avatar">{{ userInitials(task.assignedTo) }}</div>
+      <div class="info">
+        <a class="title">{{ task.title }}</a>
+        <div class="meta">
+          <span class="category"><mat-icon>person</mat-icon>{{ task.category }}</span>
+          <span class="date">{{ task.dueDate | date:'d MMM' }}</span>
+          <span class="duration">{{ task.durationHours }}h</span>
+        </div>
+      </div>
+      <mat-chip [ngClass]="task.priority">{{ task.priority }}</mat-chip>
+    </li>
+  </ul>
+</div>

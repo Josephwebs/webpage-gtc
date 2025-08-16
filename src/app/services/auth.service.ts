@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import { User } from '../models/user';
 
 const USERS_KEY = 'users';
@@ -7,25 +8,23 @@ const SESSION_KEY = 'session';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private users: User[] = [];
-  private loggedIn = false;
-  currentUser?: User;
+  private users: User[] = [
+    { id: 1, name: 'jose alcantara', initials: 'JA', email: 'admin@test.com', role: 'admin', password: '1234' },
+    { id: 2, name: 'ana diaz', initials: 'AD', email: 'user@test.com', role: 'user', password: '1234' }
+  ];
+
+  currentUser$ = new BehaviorSubject<User | null>(null);
 
   constructor(private router: Router) {
     const storedUsers = localStorage.getItem(USERS_KEY);
     if (storedUsers) {
       this.users = JSON.parse(storedUsers);
     } else {
-      this.users = [
-        { id: 1, name: 'Admin', email: 'admin@test.com', password: '1234' },
-        { id: 2, name: 'Usuario', email: 'user@test.com', password: '1234' }
-      ];
       this.saveUsers();
     }
     const session = localStorage.getItem(SESSION_KEY);
     if (session) {
-      this.currentUser = JSON.parse(session);
-      this.loggedIn = true;
+      this.currentUser$.next(JSON.parse(session));
     }
   }
 
@@ -40,8 +39,7 @@ export class AuthService {
   login(email: string, password: string): boolean {
     const user = this.users.find((u) => u.email === email && u.password === password);
     if (user) {
-      this.loggedIn = true;
-      this.currentUser = user;
+      this.currentUser$.next(user);
       localStorage.setItem(SESSION_KEY, JSON.stringify(user));
       return true;
     }
@@ -53,23 +51,28 @@ export class AuthService {
       return false;
     }
     const id = Math.max(0, ...this.users.map((u) => u.id)) + 1;
-    const user: User = { id, name: email.split('@')[0], email, password };
+    const user: User = {
+      id,
+      name: email.split('@')[0],
+      initials: email.slice(0, 2).toUpperCase(),
+      email,
+      role: 'user',
+      password
+    };
     this.users.push(user);
     this.saveUsers();
-    this.loggedIn = true;
-    this.currentUser = user;
+    this.currentUser$.next(user);
     localStorage.setItem(SESSION_KEY, JSON.stringify(user));
     return true;
   }
 
   logout() {
-    this.loggedIn = false;
-    this.currentUser = undefined;
+    this.currentUser$.next(null);
     localStorage.removeItem(SESSION_KEY);
-    this.router.navigate(['/auth']);
+    this.router.navigate(['/login']);
   }
 
   isLoggedIn(): boolean {
-    return this.loggedIn;
+    return !!this.currentUser$.value;
   }
 }

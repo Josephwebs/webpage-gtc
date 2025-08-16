@@ -1,0 +1,36 @@
+.kpi-grid {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.main-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .main-grid {
+    flex-direction: row;
+  }
+  app-recent-tasks {
+    flex: 2;
+  }
+  .side {
+    flex: 1;
+  }
+}
+
+@media (min-width: 1200px) {
+  .kpi-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

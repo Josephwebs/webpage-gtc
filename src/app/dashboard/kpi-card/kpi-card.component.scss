@@ -1,0 +1,39 @@
+.kpi-card {
+  position: relative;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+
+  .badge {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-radius: var(--radius-pill);
+    top: 16px;
+    right: 16px;
+    background: var(--primary);
+  }
+
+  &.green .badge { background: var(--success); }
+  &.orange .badge { background: var(--warning); }
+  &.violet .badge { background: var(--violet); }
+
+  .title { font-size: 14px; color: var(--muted); }
+  .value { font-size: 32px; font-weight: 600; }
+  .subtitle { font-size: 12px; color: var(--muted); }
+
+  .trend {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+
+    &.up span { color: var(--success); }
+    &.down span { color: var(--danger); }
+
+    mat-icon {
+      font-size: 16px;
+      margin-right: 4px;
+    }
+  }
+}

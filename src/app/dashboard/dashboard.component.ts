@@ -1,106 +1,44 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { MatSelectModule } from '@angular/material/select';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { DragDropModule, CdkDragDrop } from '@angular/cdk/drag-drop';
+import { KpiCardComponent } from './kpi-card/kpi-card.component';
+import { RecentTasksComponent } from './recent-tasks/recent-tasks.component';
+import { TeamActivityComponent } from './team-activity/team-activity.component';
+import { QuickLinksComponent } from './quick-links/quick-links.component';
+import { FiltersBarComponent } from './filters-bar/filters-bar.component';
 import { TaskService } from '../services/task.service';
-import { AuthService } from '../services/auth.service';
-import { Task } from '../models/task';
-import { User } from '../models/user';
-import { TaskFormComponent } from '../task-form/task-form.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,
-    MatSelectModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDialogModule,
-    DragDropModule
-],
+    KpiCardComponent,
+    RecentTasksComponent,
+    TeamActivityComponent,
+    QuickLinksComponent,
+    FiltersBarComponent
+  ],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent implements OnInit {
-  tasks: Task[] = [];
-  statuses: Task['status'][] = ['Pendiente', 'En Progreso', 'Completado'];
-  users: User[] = [];
-  filterUser = '';
-  filterStatus = '';
+  kpis = [
+    { title: 'Total', value: 0, subtitle: 'Tareas', trendText: '', trendType: 'up', accent: 'blue' },
+    { title: 'Completadas', value: 0, subtitle: '', trendText: '', trendType: 'up', accent: 'green' },
+    { title: 'En Progreso', value: 0, subtitle: '', trendText: '', trendType: 'up', accent: 'orange' },
+    { title: 'Vencidas', value: 0, subtitle: '', trendText: '', trendType: 'down', accent: 'violet' }
+  ];
 
-  constructor(
-    private tasksService: TaskService,
-    private dialog: MatDialog,
-    private auth: AuthService
-  ) {}
+  constructor(private tasks: TaskService) {}
 
   ngOnInit() {
-    this.loadTasks();
-    this.users = this.auth.getUsers();
-  }
-
-  loadTasks() {
-    this.tasks = this.tasksService.getTasks();
-  }
-
-  get filteredTasks() {
-    return this.tasks.filter(
-      (t) => (!this.filterUser || t.assignedTo === this.filterUser) && (!this.filterStatus || t.status === this.filterStatus)
-    );
-  }
-
-  get tasksByStatus() {
-    const filtered = this.filteredTasks;
-    return {
-      Pendiente: filtered.filter((t) => t.status === 'Pendiente'),
-      'En Progreso': filtered.filter((t) => t.status === 'En Progreso'),
-      Completado: filtered.filter((t) => t.status === 'Completado')
-    } as Record<Task['status'], Task[]>;
-  }
-
-  drop(event: CdkDragDrop<Task[]>, status: Task['status']) {
-    const task = event.item.data as Task;
-    this.tasksService.updateStatus(task.id, status);
-    this.loadTasks();
-  }
-
-  statusClass(status: Task['status']) {
-    return status.replace(/\s+/g, '-').toLowerCase();
-  }
-
-  priorityClass(priority: Task['priority']) {
-    return priority.toLowerCase();
-  }
-
-  openTask(task?: Task) {
-    const dialogRef = this.dialog.open(TaskFormComponent, {
-      data: {
-        task:
-          task ?? {
-            id: 0,
-            title: '',
-            description: '',
-            dueDate: '',
-            assignedTo: '',
-            priority: 'Media',
-            status: 'Pendiente'
-          },
-        users: this.users
-      }
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.tasksService.upsertTask(result);
-        this.loadTasks();
-      }
-    });
+    const all = this.tasks.listAll();
+    const completed = all.filter(t => t.status === 'Completado').length;
+    const inProgress = all.filter(t => t.status === 'En Progreso').length;
+    const overdue = all.filter(t => t.status !== 'Completado' && new Date(t.dueDate) < new Date()).length;
+    this.kpis[0].value = all.length;
+    this.kpis[1].value = completed;
+    this.kpis[2].value = inProgress;
+    this.kpis[3].value = overdue;
   }
 }
