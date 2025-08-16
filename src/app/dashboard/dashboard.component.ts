@@ -6,6 +6,7 @@ import { TeamActivityComponent } from './team-activity/team-activity.component';
 import { QuickLinksComponent } from './quick-links/quick-links.component';
 import { FiltersBarComponent } from './filters-bar/filters-bar.component';
 import { TaskService } from '../services/task.service';
+import { Kpi } from '../models/kpi';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,7 +23,7 @@ import { TaskService } from '../services/task.service';
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent implements OnInit {
-  kpis = [
+  kpis :Kpi[] = [
     { title: 'Total', value: 0, subtitle: 'Tareas', trendText: '', trendType: 'up', accent: 'blue' },
     { title: 'Completadas', value: 0, subtitle: '', trendText: '', trendType: 'up', accent: 'green' },
     { title: 'En Progreso', value: 0, subtitle: '', trendText: '', trendType: 'up', accent: 'orange' },
