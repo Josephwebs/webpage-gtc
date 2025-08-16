@@ -1,12 +1,28 @@
-<mat-toolbar color="primary" *ngIf="auth.isLoggedIn()">
-  <span class="logo">Gestor</span>
-  <span class="greeting">¡Bienvenido, {{ (auth.currentUser$ | async)?.name }}!</span>
-  <span class="spacer"></span>
-  <button mat-icon-button [matMenuTriggerFor]="userMenu">
-    <mat-icon>account_circle</mat-icon>
+<nav class="navbar" *ngIf="auth.isLoggedIn()">
+  <div class="brand">
+    <h1 class="title">TaskFlow</h1>
+    <p class="tagline">Gestor colaborativo</p>
+  </div>
+
+  <mat-nav-list class="nav-list">
+    <a mat-list-item routerLink="/dashboard" routerLinkActive="active">
+      <mat-icon>dashboard</mat-icon>
+      <span>Dashboard</span>
+    </a>
+    <a mat-list-item routerLink="/boards" routerLinkActive="active">
+      <mat-icon>view_kanban</mat-icon>
+      <span>Tablero Kanban</span>
+    </a>
+    <a mat-list-item routerLink="/team" routerLinkActive="active">
+      <mat-icon>group</mat-icon>
+      <span>Equipo</span>
+    </a>
+  </mat-nav-list>
+
+  <div class="spacer"></div>
+
+  <button mat-button class="logout" (click)="logout()">
+    <mat-icon>logout</mat-icon>
+    Cerrar sesión
   </button>
-  <mat-menu #userMenu="matMenu">
-    <button mat-menu-item>Perfil</button>
-    <button mat-menu-item (click)="logout()">Cerrar sesión</button>
-  </mat-menu>
-</mat-toolbar>
+</nav>
