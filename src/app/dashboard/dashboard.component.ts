@@ -24,7 +24,7 @@ import { PrioritySummaryComponent } from './priority-summary/priority-summary.co
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent implements OnInit {
-  kpis = [
+  kpis :Kpi[] = [
     { title: 'Total', value: 0, subtitle: 'Tareas', trendText: '', trendType: 'up', accent: 'blue' },
     { title: 'Completadas', value: 0, subtitle: '', trendText: '', trendType: 'up', accent: 'green' },
     { title: 'En Progreso', value: 0, subtitle: '', trendText: '', trendType: 'up', accent: 'orange' },

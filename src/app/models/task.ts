@@ -1,4 +1,5 @@
 export interface Task {
+  boardId: number;
   id: number;
   title: string;
   description?: string;

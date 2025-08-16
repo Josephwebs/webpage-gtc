@@ -23,7 +23,8 @@ export class TaskService {
           status: 'Pendiente',
           assignedTo: 1,
           createdAt: '2025-12-01',
-          updatedAt: '2025-12-01'
+          updatedAt: '2025-12-01',
+          boardId: 0
         },
         {
           id: 2,
@@ -35,7 +36,8 @@ export class TaskService {
           status: 'Pendiente',
           assignedTo: 2,
           createdAt: '2025-12-02',
-          updatedAt: '2025-12-02'
+          updatedAt: '2025-12-02',
+          boardId: 0
         },
         {
           id: 3,
@@ -47,7 +49,8 @@ export class TaskService {
           status: 'En Progreso',
           assignedTo: 1,
           createdAt: '2025-12-03',
-          updatedAt: '2025-12-03'
+          updatedAt: '2025-12-03',
+          boardId: 0
         },
         {
           id: 4,
@@ -59,7 +62,8 @@ export class TaskService {
           status: 'Pendiente',
           assignedTo: 2,
           createdAt: '2025-12-04',
-          updatedAt: '2025-12-04'
+          updatedAt: '2025-12-04',
+          boardId: 0
         },
         {
           id: 5,
@@ -71,7 +75,8 @@ export class TaskService {
           status: 'Completado',
           assignedTo: 1,
           createdAt: '2025-12-05',
-          updatedAt: '2025-12-05'
+          updatedAt: '2025-12-05',
+          boardId: 0
         },
         {
           id: 6,
@@ -83,7 +88,8 @@ export class TaskService {
           status: 'Completado',
           assignedTo: 1,
           createdAt: '2025-11-30',
-          updatedAt: '2025-11-30'
+          updatedAt: '2025-11-30',
+          boardId: 0
         },
         {
           id: 7,
@@ -95,7 +101,8 @@ export class TaskService {
           status: 'Completado',
           assignedTo: 2,
           createdAt: '2025-11-29',
-          updatedAt: '2025-11-29'
+          updatedAt: '2025-11-29',
+          boardId: 0
         }
       ];
       this.save();
