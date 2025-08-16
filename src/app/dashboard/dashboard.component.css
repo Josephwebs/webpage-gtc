@@ -1,0 +1,12 @@
+.board-list {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1rem;
+}
+.board-card {
+  width: 200px;
+  cursor: pointer;
+  padding: 1rem;
+  text-align: center;
+}

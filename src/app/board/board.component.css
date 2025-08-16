@@ -1,0 +1,32 @@
+.board-container {
+  height: calc(100vh - 64px);
+}
+.board-content {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+}
+.column {
+  width: 300px;
+  min-height: 400px;
+  background: #f5f5f5;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+.task {
+  margin-bottom: 0.5rem;
+}
+.pendiente {
+  border-left: 5px solid #e53935;
+}
+.en-progreso {
+  border-left: 5px solid #fdd835;
+}
+.completado {
+  border-left: 5px solid #43a047;
+}
+.add-btn {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+}

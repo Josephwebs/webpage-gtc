@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>{{ task.id ? 'Editar' : 'Crear' }} Tarea</h2>
+<mat-dialog-content>
+  <form class="task-form">
+    <mat-form-field appearance="fill">
+      <mat-label>Título</mat-label>
+      <input matInput [(ngModel)]="task.title" name="title" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput rows="3" [(ngModel)]="task.description" name="description"></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Fecha límite</mat-label>
+      <input matInput type="date" [(ngModel)]="task.dueDate" name="dueDate" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Asignado a</mat-label>
+      <mat-select [(ngModel)]="task.assignedTo" name="assignedTo">
+        <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="save()">Guardar</button>
+</mat-dialog-actions>
