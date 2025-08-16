@@ -2,14 +2,16 @@
   <app-filters-bar></app-filters-bar>
 
   <div class="kpi-grid">
-    <app-kpi-card *ngFor="let k of kpis"
-      [title]="k.title"
-      [value]="k.value"
-      [subtitle]="k.subtitle ?? ''"
-      [trendText]="k.trendText ?? ''"
-      [trendType]="k.trendType ?? 'up'"
-      [accent]="k.accent ?? 'blue'">
-    </app-kpi-card>
+    @for (k of kpis; track k.title) {
+      <app-kpi-card
+        [title]="k.title"
+        [value]="k.value"
+        [subtitle]="k.subtitle ?? ''"
+        [trendText]="k.trendText ?? ''"
+        [trendType]="k.trendType ?? 'up'"
+        [accent]="k.accent ?? 'blue'">
+      </app-kpi-card>
+    }
   </div>
 
   <div class="main-grid">

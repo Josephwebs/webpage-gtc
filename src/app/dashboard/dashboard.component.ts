@@ -7,6 +7,7 @@ import { QuickLinksComponent } from './quick-links/quick-links.component';
 import { FiltersBarComponent } from './filters-bar/filters-bar.component';
 import { TaskService } from '../services/task.service';
 import { PrioritySummaryComponent } from './priority-summary/priority-summary.component';
+import { Kpi } from '../models/kpi';
 
 @Component({
   selector: 'app-dashboard',
@@ -38,12 +39,14 @@ export class DashboardComponent implements OnInit {
     const completed = all.filter(t => t.status === 'Completado').length;
     const inProgress = all.filter(t => t.status === 'En Progreso').length;
     const overdue = all.filter(t => t.status !== 'Completado' && new Date(t.dueDate) < new Date()).length;
+    console.log('KPI Data:', { all, completed, inProgress, overdue });
     this.kpis = [
       { title: 'Total', value: all.length, subtitle: 'Tareas', trendText: '', trendType: 'up', accent: 'blue' },
       { title: 'Completadas', value: completed, subtitle: '', trendText: '', trendType: 'up', accent: 'green' },
       { title: 'En Progreso', value: inProgress, subtitle: '', trendText: '', trendType: 'up', accent: 'orange' },
       { title: 'Vencidas', value: overdue, subtitle: '', trendText: '', trendType: 'down', accent: 'violet' }
     ];
+    console.log(' se logro KPI Cards:', this.kpis);
     this.cdr.detectChanges();
   }
 }

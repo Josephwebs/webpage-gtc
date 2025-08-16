@@ -114,10 +114,11 @@ export class TaskService {
   }
 
   listRecent(): Task[] {
+    const toTime = (s?: string) => s ? new Date(s).getTime() : 0;
     return [...this.tasks]
-      .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+      .sort((a, b) => toTime(b.createdAt) - toTime(a.createdAt))
       .slice(0, 7);
-  }
+  }            
 
   listAll(filters?: Partial<{ assignedTo: number; status: Task['status']; priority: Task['priority']; category: Task['category']; }>): Task[] {
     return this.tasks.filter(t => {

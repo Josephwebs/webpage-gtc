@@ -6,8 +6,14 @@
     <div class="subtitle">{{ subtitle }}</div>
   </div>
   <div class="trend" [ngClass]="trendType">
-    <mat-icon *ngIf="trendType === 'up'">trending_up</mat-icon>
-    <mat-icon *ngIf="trendType === 'down'">trending_down</mat-icon>
+    @switch (trendType) {
+      @case ('up') {
+        <mat-icon>trending_up</mat-icon>
+      }
+      @case ('down') {
+        <mat-icon>trending_down</mat-icon>
+      }
+    }
     <span>{{ trendText }}</span>
   </div>
 </div>
