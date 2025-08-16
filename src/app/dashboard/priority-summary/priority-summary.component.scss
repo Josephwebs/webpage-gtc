@@ -1,0 +1,14 @@
+.priority-summary {
+  h3 {
+    margin: 0 0 12px;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li + li {
+      margin-top: 4px;
+    }
+  }
+}
