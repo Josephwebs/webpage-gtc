@@ -1,12 +1,45 @@
-.board-list {
+.filters {
   display: flex;
   gap: 1rem;
-  flex-wrap: wrap;
   padding: 1rem;
 }
-.board-card {
+.filters mat-form-field {
   width: 200px;
-  cursor: pointer;
+}
+.board-content {
+  display: flex;
+  gap: 1rem;
   padding: 1rem;
-  text-align: center;
+}
+.column {
+  width: 300px;
+  min-height: 400px;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+.column.pendiente {
+  background: #ffcdd2;
+}
+.column.en-progreso {
+  background: #fff9c4;
+}
+.column.completado {
+  background: #c8e6c9;
+}
+.task {
+  margin-bottom: 0.5rem;
+}
+.alta {
+  border-left: 5px solid #e53935;
+}
+.media {
+  border-left: 5px solid #fdd835;
+}
+.baja {
+  border-left: 5px solid #43a047;
+}
+.add-btn {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
 }

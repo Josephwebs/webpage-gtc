@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
+import { AuthComponent } from './auth/auth.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { BoardComponent } from './board/board.component';
+import { KanbanBoardComponent } from './kanban-board/kanban-board.component';
 import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent },
+  { path: 'auth', component: AuthComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'board/:id', component: BoardComponent, canActivate: [AuthGuard] },
-  { path: '', pathMatch: 'full', redirectTo: 'login' },
-  { path: '**', redirectTo: 'login' }
+  { path: 'kanban-board', component: KanbanBoardComponent, canActivate: [AuthGuard] },
+  { path: '', pathMatch: 'full', redirectTo: 'auth' },
+  { path: '**', redirectTo: 'auth' }
 ];
