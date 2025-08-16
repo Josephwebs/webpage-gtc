@@ -20,10 +20,12 @@ export class TaskService {
           dueDate: '2025-08-20',
           assignedTo: 'Admin',
           priority: 'Alta',
-          status: 'Pendiente'
+          status: 'Pendiente',
+          boardId: 1
         },
         {
           id: 2,
+          boardId: 1,
           title: 'Diseñar UI',
           description: 'Bocetar pantallas',
           dueDate: '2025-09-01',
@@ -33,12 +35,13 @@ export class TaskService {
         },
         {
           id: 3,
-          title: 'Preparar propuesta',
+          title: 'Prepa rar propuesta',
           description: 'Enviar costos',
           dueDate: '2025-08-25',
           assignedTo: 'Admin',
           priority: 'Baja',
-          status: 'Completado'
+          status: 'Completado',
+          boardId: 2
         }
       ];
       this.save();

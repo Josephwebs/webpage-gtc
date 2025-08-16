@@ -24,9 +24,8 @@ import { TaskFormComponent } from '../task-form/task-form.component';
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
-    DragDropModule,
-    TaskFormComponent
-  ],
+    DragDropModule
+],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })

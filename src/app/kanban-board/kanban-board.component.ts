@@ -20,7 +20,6 @@ import { TaskFormComponent } from '../task-form/task-form.component';
     MatIconModule,
     MatDialogModule,
     DragDropModule,
-    TaskFormComponent
   ],
   templateUrl: './kanban-board.component.html',
   styleUrl: './kanban-board.component.css'
