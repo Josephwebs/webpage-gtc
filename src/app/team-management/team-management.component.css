@@ -1,0 +1,15 @@
+.team-management {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.full-width {
+  width: 100%;
+}
