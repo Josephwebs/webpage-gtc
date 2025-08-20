@@ -1,9 +1,17 @@
-<div class="board-content">
+<div class="view-toggle">
+  <mat-button-toggle-group [(ngModel)]="viewMode" aria-label="View mode">
+    <mat-button-toggle value="board">Tablero</mat-button-toggle>
+    <mat-button-toggle value="list">Lista</mat-button-toggle>
+  </mat-button-toggle-group>
+</div>
+
+<div *ngIf="viewMode === 'board'" class="board-content" cdkDropListGroup>
   <div
     class="column"
     *ngFor="let status of statuses"
     [ngClass]="statusClass(status)"
     cdkDropList
+    [cdkDropListData]="tasksByStatus[status]"
     (cdkDropListDropped)="drop($event, status)"
   >
     <h3>{{ status }}</h3>
@@ -28,6 +36,44 @@
     </div>
   </div>
 </div>
+
+<div *ngIf="viewMode === 'list'" class="list-content">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Título</th>
+      <td mat-cell *matCellDef="let task">{{ task.title }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Descripción</th>
+      <td mat-cell *matCellDef="let task">{{ task.description }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="dueDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
+      <td mat-cell *matCellDef="let task">{{ task.dueDate }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="assignedToName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Asignado a</th>
+      <td mat-cell *matCellDef="let task">{{ userName(task.assignedTo) }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="priority">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Prioridad</th>
+      <td mat-cell *matCellDef="let task">{{ task.priority }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
+      <td mat-cell *matCellDef="let task">{{ task.status }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
+
 <button mat-fab color="primary" class="add-btn" (click)="openTask()">
   <mat-icon>add</mat-icon>
 </button>
