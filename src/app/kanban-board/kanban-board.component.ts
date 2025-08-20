@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DragDropModule, CdkDragDrop } from '@angular/cdk/drag-drop';
+import { MatTableModule, MatTableDataSource } from '@angular/material/table';
+import { MatSortModule, MatSort } from '@angular/material/sort';
 import { TaskService } from '../services/task.service';
 import { AuthService } from '../services/auth.service';
 import { Task } from '../models/task';
@@ -16,19 +20,35 @@ import { TaskFormComponent } from '../task-form/task-form.component';
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     MatCardModule,
     MatButtonModule,
+    MatButtonToggleModule,
     MatIconModule,
     MatDialogModule,
     DragDropModule,
+    MatTableModule,
+    MatSortModule,
   ],
   templateUrl: './kanban-board.component.html',
   styleUrl: './kanban-board.component.css'
 })
-export class KanbanBoardComponent implements OnInit {
+export class KanbanBoardComponent implements OnInit, AfterViewInit {
   tasks: Task[] = [];
   statuses: Task['status'][] = ['Pendiente', 'En Progreso', 'Completado'];
   users: User[] = [];
+  viewMode: 'board' | 'list' = 'board';
+  dataSource = new MatTableDataSource<Task>([]);
+  displayedColumns: (keyof Task | 'assignedToName')[] = [
+    'title',
+    'description',
+    'dueDate',
+    'assignedToName',
+    'priority',
+    'status',
+  ];
+
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private tasksService: TaskService,
@@ -41,8 +61,14 @@ export class KanbanBoardComponent implements OnInit {
     this.loadTasks();
   }
 
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+  }
+
   loadTasks() {
-    this.tasks = this.tasksService.listAll();
+    const current = this.auth.currentUser$.value;
+    this.tasks = this.tasksService.listAll(current ? { assignedTo: current.id } : undefined);
+    this.dataSource.data = this.tasks.map(t => ({ ...t }));
   }
 
   get tasksByStatus() {
