@@ -21,6 +21,23 @@
 .task {
   margin-bottom: 0.5rem;
 }
+.task-placeholder {
+  height: 80px;
+  border: 2px dashed #ccc;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+.cdk-drag-animating {
+  transition: transform 250ms ease;
+}
+.column.cdk-drop-list-dragging .task:not(.cdk-drag-placeholder) {
+  transition: transform 250ms ease;
+}
 .alta {
   border-left: 5px solid #e53935;
 }

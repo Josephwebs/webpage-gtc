@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { TaskFormComponent } from '../../task-form/task-form.component';
 import { TaskService } from '../../services/task.service';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-filters-bar',

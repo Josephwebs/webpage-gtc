@@ -10,7 +10,7 @@ import { DragDropModule, CdkDragDrop } from '@angular/cdk/drag-drop';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatSortModule, MatSort } from '@angular/material/sort';
 import { TaskService } from '../services/task.service';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../core/services/auth.service';
 import { Task } from '../models/task';
 import { User } from '../models/user';
 import { TaskFormComponent } from '../task-form/task-form.component';
