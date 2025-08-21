@@ -12,6 +12,7 @@
     [ngClass]="statusClass(status)"
     cdkDropList
     [cdkDropListData]="tasksByStatus[status]"
+    [cdkDropListSortingDisabled]="true"
     (cdkDropListDropped)="drop($event, status)"
   >
     <h3>{{ status }}</h3>
@@ -21,6 +22,17 @@
       cdkDrag
       [cdkDragData]="task"
     >
+      <ng-template cdkDragPreview>
+        <mat-card [ngClass]="priorityClass(task.priority)" class="drag-preview">
+          <mat-card-title>{{ task.title }}</mat-card-title>
+          <mat-card-content>
+            <p>{{ task.description }}</p>
+            <p>Fecha: {{ task.dueDate }}</p>
+            <p>Asignado a: {{ userName(task.assignedTo) }}</p>
+            <p class="priority">{{ task.priority }}</p>
+          </mat-card-content>
+        </mat-card>
+      </ng-template>
       <mat-card [ngClass]="priorityClass(task.priority)">
         <mat-card-title>{{ task.title }}</mat-card-title>
         <mat-card-content>
@@ -33,6 +45,7 @@
           <button mat-button (click)="openTask(task)">Editar</button>
         </mat-card-actions>
       </mat-card>
+      <div class="task-placeholder" *cdkDragPlaceholder></div>
     </div>
   </div>
 </div>
